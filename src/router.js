@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import StoreFront from './views/StoreFront.vue'
-import ItemPage from './views/ItemPage.vue'
+import StoreFront from '@/views/StoreFront.vue'
+import ItemPage from '@/views/ItemPage.vue'
 
 Vue.use(Router)
 
@@ -15,7 +15,10 @@ export default new Router({
     {
       path: '/item/:id',
       name: 'item',
-      component: ItemPage
+      component: ItemPage,
+      props: route => ({
+        id: route.params.id
+      })
     },
     // {
     //   path: '/about',

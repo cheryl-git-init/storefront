@@ -1,5 +1,5 @@
 import Vuex from 'vuex';
-import StoreManager from '@/views/StoreManager.vue';
+import StoreManager from '@/components/StoreManager.vue';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 
 const localVue = createLocalVue();
@@ -10,6 +10,7 @@ describe('StoreManager.vue', () => {
     const wrapper = shallowMount(StoreManager, {
         localVue
     })
+    console.log(wrapper.html())
     expect(wrapper.html()).toMatch("<div><navbar-stub></navbar-stub> <storemanager-stub></storemanager-stub></div>")
   })
 })

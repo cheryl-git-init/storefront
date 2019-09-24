@@ -1,6 +1,7 @@
 <template>
     <div>
         <button v-if="!itemIsInBasket" @click="addItemToBasket">Add To Basket</button>
+        <button v-else @click="removeItem">Remove</button>
     </div>
 </template>
 
@@ -13,7 +14,6 @@ export default {
   },
   computed: {
     itemIsInBasket () {
-        this.$forceUpdate()
         return this.$store.getters.itemIsInBasket(this.id)
     },
   },
@@ -23,6 +23,9 @@ export default {
   methods: {
       addItemToBasket: function () {
           this.$store.dispatch('addItemToBasket',this.id)
+      },
+      removeItem: function () {
+          this.$store.dispatch('removeItemFromBasket',this.id)
       }
   }
 }

@@ -5,6 +5,7 @@
       <p>{{ currentBasketCost }}</p>
     </div>
     <Basket v-if="basketIsDisplayed" />
+    <div v-if="basketIsDisplayed" class="basket-overlay" @click="toggleBasket"></div>
   </div>
 </template>
 
@@ -48,8 +49,17 @@ img {
   margin: 15px 10px;
   position: absolute;
   cursor: pointer;
+  z-index: 3;
 }
 .active {
   color: blue;
+}
+.basket-overlay {
+  height: 100%;
+  width: 100%;
+  background-color: lightslategrey;
+  z-index: 2;
+  position: fixed;
+  opacity: 0.6;
 }
 </style>

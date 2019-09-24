@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 // @ is an alias to /src
 import NavBar from '@/components/NavBar.vue'
 import StoreManager from '@/components/StoreManager.vue'
@@ -22,27 +21,17 @@ export default {
     return {}
   },
   methods: {
-    getData: async function () {
-      if (!this.doItemsExist) {
-        const returnedData = await axios.get("https://product-service.herokuapp.com/api/v1/products", {
-          auth: {
-            username: "user",
-            password: "pass"
-          }
-        }).catch(error => error)
-        console.log(returnedData.data)
-        this.$store.dispatch('setInitialItems', returnedData.data)
-      }
-    }
   },
   mounted: function() {
-    this.getData()
+    this.$store.dispatch('getAllItems')
   },
   computed: {
     doItemsExist () {
-      console.log(this.$store.getters.itemList)
       return (this.$store.getters.itemList).length > 0
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+</style>

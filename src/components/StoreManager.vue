@@ -40,6 +40,8 @@ img {
     object-fit: cover
 }
 .store {
+    top: 100px;
+    position: relative;
     div {
         display: grid;
         grid-template-columns: repeat(3, 1fr);

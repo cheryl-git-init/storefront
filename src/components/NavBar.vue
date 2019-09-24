@@ -21,6 +21,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#nav {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  top: 0px;
+}
 img {
   float: left;
   margin: 10px;
