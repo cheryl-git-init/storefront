@@ -13,15 +13,16 @@ export default {
   },
   computed: {
     itemIsInBasket () {
-        return this.$store.getters.itemIsInBasket(this.itemID)
+        this.$forceUpdate()
+        return this.$store.getters.itemIsInBasket(this.id)
     },
   },
   props: {
-      itemID: String
+      id:String
   },
   methods: {
       addItemToBasket: function () {
-          this.$store.dispatch('addItemToBasket',this.itemID)
+          this.$store.dispatch('addItemToBasket',this.id)
       }
   }
 }

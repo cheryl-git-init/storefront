@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul>
-            <li v-for="item in getBasketContents" :key="item.name">{{ key }}</li>
+            <li v-for="item in getBasketContents" :key="item.name">{{ item.name }}</li>
         </ul>
     </div>
 </template>
@@ -27,7 +27,7 @@ export default {
 div {
     background-color: azure;
     width: 90%;
-    height: 90%;
+    height: 70%;
     position: fixed;
     right: 0px;
     top: 101px;
