@@ -5,7 +5,7 @@
         <router-link :to="link"><img v-bind:src="getImgLink()" height="80px"></router-link>
         <p>{{ name }}</p>
         <p>{{ currencySymbol }}{{ decimalPrice }}</p>
-        <AddToBasket/>
+        <AddToBasket :id="id"/>
     </template>
   </div>
 </template>

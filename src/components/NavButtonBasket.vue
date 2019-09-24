@@ -1,7 +1,9 @@
 <template>
-  <div class="basket-display" v-on:click="toggleBasket">
-    <i class="fas fa-shopping-basket fa-3x" :class="{'active': basketIsDisplayed}"></i>
-    <p>{{ currentBasketCost }}</p>
+  <div>
+    <div class="basket-display" v-on:click="toggleBasket">
+      <i class="fas fa-shopping-basket fa-3x" :class="{'active': basketIsDisplayed}"></i>
+      <p>{{ currentBasketCost }}</p>
+    </div>
     <Basket v-if="basketIsDisplayed" />
   </div>
 </template>
