@@ -8,7 +8,6 @@
       <AddToBasket :id="id" />
       <p>Cupcake ipsum dolor sit. Amet powder oat cake marshmallow I love chocolate cake. Toffee chupa chups danish cotton candy dessert jelly-o.</p>
       <p>Sesame snaps sweet dessert bear claw cotton candy marzipan cotton candy. Tart cheesecake cupcake jelly-o sweet roll gummi bears donut liquorice croissant. Ice cream I love donut candy cheesecake I love cheesecake. Sweet roll chupa chups brownie sesame snaps croissant. Pie I love I love donut chocolate bar.</p>
-      
     </div>
   </div>
 </template>
@@ -27,10 +26,10 @@ export default {
   props: {
     id: String
   },
-  data: function () {
+  data: function() {
     return {
-        currencySymbol: "$"
-    }
+      currencySymbol: "$"
+    };
   },
   computed: {
     itemDetails() {
@@ -38,8 +37,7 @@ export default {
     }
   },
   mounted: function() {
-    this.$store.dispatch("getAllItems")
-    
+    this.$store.dispatch("getAllItems");
   },
   methods: {
     getImgLink() {
@@ -51,7 +49,7 @@ export default {
 
 <style lang="scss" scoped>
 .item {
-  top: 100px;
+  top: 70px;
   position: relative;
 }
 </style>

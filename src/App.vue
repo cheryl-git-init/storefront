@@ -6,28 +6,32 @@
 
 <style lang="scss">
 $font-stack: Helvetica, sans-serif;
-$secondary-color: rgb(72, 105, 255);
-$tertiary-color: rgb(200, 206, 255);
+$color1: rgb(79, 16, 145, 1);
+$color2: rgb(12, 10, 62, 1);
+$color3: rgb(179, 63, 98, 1);
+$color4: rgb(204, 219, 220, 1);
+$color5: rgb(243, 198, 119, 1);
+$coolwhite: rgb(243, 253, 253, 1);
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: $color2;
 }
 #nav {
-  height: 100px;
-  background-color: $secondary-color;
+  height: 60px;
+  background-color: $color1;
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: $color3;
     &.router-link-exact-active {
-      color: #42b983;
+      color: $coolwhite;
     }
   }
 }
 body {
-  background-color: $tertiary-color;
+  background-color: $coolwhite;
   margin: 0px;
 }
 </style>

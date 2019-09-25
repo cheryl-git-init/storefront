@@ -34,13 +34,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$font-stack: Helvetica, sans-serif;
+$color1: rgb(79, 16, 145, 1);
+$color2: rgb(12, 10, 62, 1);
+$color3: rgb(179, 63, 98, 1);
+$color4: rgb(204, 219, 220, 1);
+$color5: rgb(243, 198, 119, 1);
+$coolwhite: rgb(243, 253, 253, 1);
+
 .basket-wrapper {
-    background-color: rgb(202, 218, 218);
+    background-color: $color4;
     width: 20em;
     max-width: 95%;
     position: fixed;
     right: 0px;
-    top: 101px;
+    top: 60px;
     z-index: 3;
     .basket-item {
         text-align: left;

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import { async } from 'q'
 
 Vue.use(Vuex)
 
@@ -9,45 +10,65 @@ export default new Vuex.Store({
     loading: true,
     items: [],
     bundles: [
-      { 
+      {
         name: "Brawler Bundle",
-        items: [ "7dgX6XzU3Wds" , "VqKb4tyj9V6i" ]
+        items: ["7dgX6XzU3Wds", "VqKb4tyj9V6i"]
       },
-      { 
+      {
         name: "Money Bags",
-        items: [ "IP3cv7TcZhQn" , "500R5EHvNlNB" ]
+        items: ["IP3cv7TcZhQn", "500R5EHvNlNB"]
       },
-      { 
+      {
         name: "Fighter",
-        items: [ "7Hv0hA2nmci7" , "PKM5pGAh9yGm", "7dgX6XzU3Wds" ]
+        items: ["7Hv0hA2nmci7", "PKM5pGAh9yGm", "7dgX6XzU3Wds"]
       }
     ],
-    basket: [
-
-    ]
+    basket: [],
+    /**
+     * A more easily accessible data store - should contain Item ID as key and value is secondary object
+     */
+    allItemDetails: {}
   },
   mutations: {
     /**
-     * 
+     * Push an item object into the items array
      * @param {*} state 
      * @param {*} payload 
      */
-    setNewItem (state, payload) {
+    setNewItem: function (state, payload) {
       state.items.push(payload)
     },
     /**
      * 
      * @param {*} state 
+     * @param {*} payload 
      */
-    finishLoading (state) {
+    createItemDetails: function (state, payload) {
+      const itemObject = {}
+      itemObject.name = payload[0].name
+      itemObject.usdPrice = payload[0].usdPrice
+      // TODO: consider adding localised currency.
+      itemObject.currentUsdPrice = payload[0].usdPrice
+      itemObject.description = payload[1]
+      itemObject.discount = 0
+      itemObject.currencySymbol = "$"
+      console.log(itemObject)
+      state.allItemDetails[payload[0].id] = itemObject
+      console.log(state.allItemDetails)
+    },
+    /**
+     * 
+     * @param {*} state 
+     */
+    finishLoading: function (state) {
       state.loading = false
     },
     /**
      * Add item to basket
      * @param {*} state 
-     * @param {Array} payload - The item details to add to the basket
+     * @param {Object} payload - The item details to add to the basket
      */
-    addToBasket (state, payload) {
+    addToBasket: function (state, payload) {
       state.basket.push(payload)
     },
     /**
@@ -55,9 +76,17 @@ export default new Vuex.Store({
      * @param {*} state 
      * @param {String} payload - the index of the item to remove from basket
      */
-    removeFromBasket (state, payload) {
-      state.basket.splice(payload,1)
-      
+    removeFromBasket: function (state, payload) {
+      state.basket.splice(payload, 1)
+    },
+    clearAllDiscounts: function (state) {
+      for (const item in state.allItemDetails) {
+        state.allItemDetails[item].currentUsdPrice = state.allItemDetails[item].usdPrice
+        state.allItemDetails[item].discount = 0
+      }
+    },
+    setItemDiscounts: function (state, payload) {
+
     }
   },
   getters: {
@@ -123,7 +152,7 @@ export default new Vuex.Store({
     /**
      * Find all bundles containing item ID
      */
-    getItemBundles: (state) => (id) =>{
+    getItemBundles: (state) => (id) => {
       let availableBundles = []
       for (let item in state.bundles) {
         if ((state.bundles[item].items).includes(id)) {
@@ -145,46 +174,43 @@ export default new Vuex.Store({
         context.dispatch('setInitialItems', returnedData.data)
       }
     },
-    setInitialItems: function (context, payload) {
+    setInitialItems: async function (context, payload) {
+      for (var i = 0; i < payload.length; i++) {
+        const thisItem = payload[i]
+        const {data} = await axios.get("https://baconipsum.com/api/?type=all-meat&paras=1&start-with-lorem=1&format=text")
+        context.commit('setNewItem', thisItem)
+        context.commit('createItemDetails', [thisItem, data])
+      }
       // I can't hear you over my cool loading stuff
       setTimeout(() => {
-        for (var i = 0; i < payload.length; i++) {
-          var thisItem = payload[i]
-          context.commit('setNewItem',thisItem)
-          context.commit('finishLoading')
-        }
+        context.commit('finishLoading')
       }, 3000);
     },
-    addItemToBasket: function (context,itemId) {
-      if (!context.getters.itemIsInBasket(itemId)){
-        context.commit('addToBasket',context.getters.getItemDetails(itemId))
+    addItemToBasket: function (context, itemId) {
+      if (!context.getters.itemIsInBasket(itemId)) {
+        context.commit('addToBasket', context.getters.getItemDetails(itemId))
         context.dispatch('manageBundleDiscounts')
       }
     },
-    removeItemFromBasket: function (context,itemId) {
-      if (context.getters.itemIsInBasket(itemId)){
-        context.commit('removeFromBasket',context.getters.getItemIndex(itemId))
+    removeItemFromBasket: function (context, itemId) {
+      if (context.getters.itemIsInBasket(itemId)) {
+        context.commit('removeFromBasket', context.getters.getItemIndex(itemId))
         context.dispatch('manageBundleDiscounts')
       }
     },
     manageBundleDiscounts: function (context) {
       const currentBasket = context.getters.getBasketContents
       const bundlesList = context.getters.bundlesList
-      // for (var i = 0; i < currentBasket.length; i++) {
-      //   context.getters.getItemBundles(currentBasket[i].id)
-      // }
-      for (const bundle in bundlesList) {
-        console.log(bundlesList[bundle])
-        const bundleLength = bundlesList[bundle].length
-        let checkedLength = 0
-        console.log(bundlesList[bundle])
-        for (const item in bundlesList[bundle]) {
-          if (context.getters.itemIsInBasket(item)) {
 
-          } 
-        }
+      // TODO: Clear all bundles here
+
+      for (const bundle in bundlesList) {
+        // If every item in the bundle is in the basket
         if (bundlesList[bundle]['items'].every(context.getters.itemIsInBasket)) {
           console.log("success, found a bundle")
+          for (const item in bundlesList[bundle]['items']) {
+            // TODO: for each item, set a discount
+          }
         }
         //itemIsInBasket
       }

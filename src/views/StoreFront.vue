@@ -9,7 +9,6 @@
 // @ is an alias to /src
 import NavBar from '@/components/NavBar.vue'
 import StoreManager from '@/components/StoreManager.vue'
-import { async } from 'q'
 
 export default {
   name: 'store',

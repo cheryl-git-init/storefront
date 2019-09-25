@@ -40,7 +40,7 @@ img {
     object-fit: cover
 }
 .store {
-    top: 100px;
+    top: 60px;
     position: relative;
     div {
         display: grid;

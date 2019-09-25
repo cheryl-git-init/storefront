@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
     <router-link to="/">
-      <img src="@/assets/sign.svg" height="80px" />
+      <img src="@/assets/sign.svg" height="50px" />
       <h1>Home</h1>
     </router-link>
     <NavButtonBasket />
@@ -29,9 +29,10 @@ export default {
 }
 img {
   float: left;
-  margin: 10px;
+  margin: 5px;
 }
 h1 {
+  line-height: 17px;
   float: left;
 }
 /*  GO FULL WIDTH BELOW 480 PIXELS */
