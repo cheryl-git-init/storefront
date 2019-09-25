@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import { async } from 'q'
 
 Vue.use(Vuex)
 
@@ -25,7 +24,13 @@ export default new Vuex.Store({
     ],
     basket: [],
     /**
-     * A more easily accessible data store - should contain Item ID as key and value is secondary object
+     * A more easily accessible data store - should contain Item ID as key and the value is a secondary object containing:
+     * * name
+     * * description
+     * * usdPrice
+     * * discount (percent)
+     * * currentUsdPrice (affected by discount)
+     * * currencySymbol
      */
     allItemDetails: {}
   },
@@ -52,9 +57,7 @@ export default new Vuex.Store({
       itemObject.description = payload[1]
       itemObject.discount = 0
       itemObject.currencySymbol = "$"
-      console.log(itemObject)
-      state.allItemDetails[payload[0].id] = itemObject
-      console.log(state.allItemDetails)
+      Vue.set(state.allItemDetails, [payload[0].id], itemObject)
     },
     /**
      * 
@@ -81,12 +84,22 @@ export default new Vuex.Store({
     },
     clearAllDiscounts: function (state) {
       for (const item in state.allItemDetails) {
-        state.allItemDetails[item].currentUsdPrice = state.allItemDetails[item].usdPrice
-        state.allItemDetails[item].discount = 0
+        Vue.set(state.allItemDetails[item], 'currentUsdPrice', state.allItemDetails[item].usdPrice)
+        Vue.set(state.allItemDetails[item], 'discount', 0)
       }
     },
+    /**
+     * For a single item (by ID), add a provided discount percent
+     * @param {*} state 
+     * @param {Object} payload - itemID, percent discount
+     */
     setItemDiscounts: function (state, payload) {
-
+      const [ itemid, discount ] = payload
+      const newDiscount = state.allItemDetails[itemid].discount + discount
+      const cost = (state.allItemDetails[itemid].usdPrice / 100) * (100 - newDiscount)
+      
+      state.allItemDetails[itemid].currentUsdPrice = Math.round(cost)
+      state.allItemDetails[itemid].discount = newDiscount
     }
   },
   getters: {
@@ -128,6 +141,12 @@ export default new Vuex.Store({
      */
     getItemDetails: (state) => (id) => {
       return state.items.find(item => item.id === id)
+    },
+    /**
+     * 
+     */
+    getItemsInDepth: (state) => {
+      return state.allItemDetails
     },
     /**
      * 
@@ -199,17 +218,15 @@ export default new Vuex.Store({
       }
     },
     manageBundleDiscounts: function (context) {
-      const currentBasket = context.getters.getBasketContents
       const bundlesList = context.getters.bundlesList
 
-      // TODO: Clear all bundles here
+      context.commit('clearAllDiscounts')
 
       for (const bundle in bundlesList) {
         // If every item in the bundle is in the basket
         if (bundlesList[bundle]['items'].every(context.getters.itemIsInBasket)) {
-          console.log("success, found a bundle")
           for (const item in bundlesList[bundle]['items']) {
-            // TODO: for each item, set a discount
+            context.commit('setItemDiscounts',[bundlesList[bundle]['items'][item],10])
           }
         }
         //itemIsInBasket

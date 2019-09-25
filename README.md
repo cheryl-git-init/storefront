@@ -1,5 +1,6 @@
 # storefront
 
+
 ## Project setup
 Install all packages:
 ```

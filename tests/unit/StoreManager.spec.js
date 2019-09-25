@@ -10,7 +10,6 @@ describe('StoreManager.vue', () => {
     const wrapper = shallowMount(StoreManager, {
         localVue
     })
-    console.log(wrapper.html())
     expect(wrapper.html()).toMatch("<div><navbar-stub></navbar-stub> <storemanager-stub></storemanager-stub></div>")
   })
 })
