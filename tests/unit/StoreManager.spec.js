@@ -6,10 +6,17 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 
 describe('StoreManager.vue', () => {
-  test('ensuring that the component handling is not altered unexpectedly', () => {
+  test('storemanageritem-stubs are created on load', () => {
     const wrapper = shallowMount(StoreManager, {
-        localVue
+      mocks: {
+        $store: {
+          getters: {
+            itemList: function () { return [] },
+            loadingInProgress: function () { return true }
+          }
+        }
+      }
     })
-    expect(wrapper.html()).toMatch("<div><navbar-stub></navbar-stub> <storemanager-stub></storemanager-stub></div>")
+    expect(wrapper.find("storemanageritem-stub").exists()).toBe(true)
   })
 })

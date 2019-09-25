@@ -84,8 +84,8 @@ export default new Vuex.Store({
     },
     clearAllDiscounts: function (state) {
       for (const item in state.allItemDetails) {
-        Vue.set(state.allItemDetails[item], 'currentUsdPrice', state.allItemDetails[item].usdPrice)
-        Vue.set(state.allItemDetails[item], 'discount', 0)
+        state.allItemDetails[item].currentUsdPrice = state.allItemDetails[item].usdPrice
+        state.allItemDetails[item].discount = 0
       }
     },
     /**
@@ -145,8 +145,8 @@ export default new Vuex.Store({
     /**
      * 
      */
-    getItemsInDepth: (state) => {
-      return state.allItemDetails
+    getItemInDepth: (state) => (id) => {
+      return state.allItemDetails[id]
     },
     /**
      * 
@@ -163,22 +163,10 @@ export default new Vuex.Store({
       } else {
         let totalPrice = 0;
         for (var i = 0; i < state.basket.length; i++) {
-          totalPrice += state.basket[i]["usdPrice"]
+          totalPrice += state.allItemDetails[state.basket[i].id].currentUsdPrice
         }
         return `$${(totalPrice / 100).toFixed(2)}`
       }
-    },
-    /**
-     * Find all bundles containing item ID
-     */
-    getItemBundles: (state) => (id) => {
-      let availableBundles = []
-      for (let item in state.bundles) {
-        if ((state.bundles[item].items).includes(id)) {
-          availableBundles.push(state.bundles[item].items)
-        }
-      }
-      return availableBundles
     }
   },
   actions: {

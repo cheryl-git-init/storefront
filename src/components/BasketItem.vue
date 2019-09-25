@@ -1,9 +1,9 @@
 <template>
   <div class="basket-item">
-    <span>{{ getItemInDepth[id].name }}</span>
-    <span>{{ getItemInDepth[id].currencySymbol }}{{ (getItemInDepth[id].currentUsdPrice / 100).toFixed(2) }}</span>
+    <span>{{ getItemInDepth.name }}</span>
+    <span>{{ getItemInDepth.currencySymbol }}{{ (getItemInDepth.currentUsdPrice / 100).toFixed(2) }}</span>
     <span class="small-text">
-      <template v-if="getItemInDepth[id].discount > 0">{{ `Inc. ${getItemInDepth[id].discount}% discount!` }}</template>
+      <template v-if="getItemInDepth.discount > 0">{{ `Inc. ${getItemInDepth.discount}% discount!` }}</template>
     </span>
     <button class="remove-button" @click="removeItemFromBasket">X</button>
   </div>
@@ -17,8 +17,7 @@ export default {
   components: {},
   computed: {
     getItemInDepth() {
-        console.log('item')
-      return this.$store.getters.getItemsInDepth;
+      return this.$store.getters.getItemInDepth(this.id);
     }
   },
   props: {

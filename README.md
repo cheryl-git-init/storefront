@@ -12,7 +12,9 @@ Tests are written in Jest (unit tests). To test, run `npm run test:unit`.
 
 I had also planned to add e2e tests, with nightwatch, however, due to time constraints and compatibility issues, I chose to focus on functionality and unit testing.
 
-Latest build can also be seen on https://storefront.cheryllane.net
+Current unit testing is limited, with more time I'd look to add testing within the Vuex store, as this is only mocked currently. If I was to do over the project, I'd put more focus into TDD earlier on.
+
+Latest build can also be seen on https://storefront.cheryllane.net (hosts the static build assets created by the command `npm run build`).
 
 ## All Commands
 ### Project setup

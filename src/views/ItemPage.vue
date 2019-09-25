@@ -2,12 +2,11 @@
   <div>
     <NavBar />
     <div class="item">
-      <h2>{{ itemDetails.name }}</h2>
+      <h2>{{ getItemInDepth.name }}</h2>
       <img v-bind:src="getImgLink()" height="100px" />
-      <p>{{ currencySymbol }}{{ (itemDetails.usdPrice/100).toFixed(2) }}</p>
+      <p>{{ getItemInDepth.currencySymbol }}{{ (getItemInDepth.usdPrice/100).toFixed(2) }}</p>
       <AddToBasket :id="id" />
-      <p>Cupcake ipsum dolor sit. Amet powder oat cake marshmallow I love chocolate cake. Toffee chupa chups danish cotton candy dessert jelly-o.</p>
-      <p>Sesame snaps sweet dessert bear claw cotton candy marzipan cotton candy. Tart cheesecake cupcake jelly-o sweet roll gummi bears donut liquorice croissant. Ice cream I love donut candy cheesecake I love cheesecake. Sweet roll chupa chups brownie sesame snaps croissant. Pie I love I love donut chocolate bar.</p>
+      <p>{{ getItemInDepth.description }}</p>
     </div>
   </div>
 </template>
@@ -26,14 +25,9 @@ export default {
   props: {
     id: String
   },
-  data: function() {
-    return {
-      currencySymbol: "$"
-    };
-  },
   computed: {
-    itemDetails() {
-      return this.$store.getters.getItemDetails(this.id);
+    getItemInDepth() {
+      return this.$store.getters.getItemInDepth(this.id);
     }
   },
   mounted: function() {

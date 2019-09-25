@@ -2,6 +2,7 @@
   <div>
     <NavBar/>
     <StoreManager/>
+    <!-- <StoreManagerBundles/> -->
   </div>
 </template>
 
@@ -9,12 +10,14 @@
 // @ is an alias to /src
 import NavBar from '@/components/NavBar.vue'
 import StoreManager from '@/components/StoreManager.vue'
+import StoreManagerBundles from '@/components/StoreManagerBundles.vue'
 
 export default {
   name: 'store',
   components: {
     NavBar,
-    StoreManager
+    StoreManager,
+    StoreManagerBundles
   },
   data: function() {
     return {}
@@ -23,11 +26,6 @@ export default {
   },
   mounted: function() {
     this.$store.dispatch('getAllItems')
-  },
-  computed: {
-    doItemsExist () {
-      return (this.$store.getters.itemList).length > 0
-    }
   }
 }
 </script>
