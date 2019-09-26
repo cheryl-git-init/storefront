@@ -5,6 +5,8 @@ It uses vuex to store a consistent state / source of truth across the applicatio
 
 It uses vue cli service to provide compatible dev tools and production builds.
 
+NPM (https://www.npmjs.com/) is required to run locally or build.
+
 To run locally, simply check out the repo, and from the root folder, run `npm install` to install all npm packages.
 And then run `npm run serve` which will run a local dev server.
 
