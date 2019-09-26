@@ -23,7 +23,7 @@ describe('NavButtonBasket.vue', () => {
         expect(wrapper.find("basket-stub").exists()).toBe(false)
     })
 
-    it('has a basket overlay and displays the basket if "basketIsDisplayed" is true', () => {
+    it('displays a basket overlay and displays the basket if "basketIsDisplayed" is true', () => {
         wrapper.setData({ basketIsDisplayed: true })
         expect(wrapper.find(".basket-overlay").exists()).toBe(true)
         expect(wrapper.find("basket-stub").exists()).toBe(true)

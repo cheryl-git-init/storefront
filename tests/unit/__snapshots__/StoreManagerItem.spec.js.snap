@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoreManagerItem.vue recieves and displays the correct data based on props 1`] = `
+<div class="store-item">
+  <router-link-stub to="/item/1253a" class="wrapper-target"><img src="" height="80px"></router-link-stub>
+  <p>test</p>
+  <p>$3.00</p>
+  <router-link-stub to="/item/1253a" class="small-text">View item details</router-link-stub>
+  <addtobasket-stub id="1253a"></addtobasket-stub>
+</div>
+`;

@@ -13,7 +13,7 @@
 // @ is an alias to /src
 
 export default {
-  name: "basket",
+  name: "basketItem",
   components: {},
   computed: {
     getItemInDepth() {

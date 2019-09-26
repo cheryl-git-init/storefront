@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemPage.vue recieves and displays the correct data 1`] = `
+<div>
+  <navbar-stub></navbar-stub>
+  <div class="item">
+    <h2>test</h2> <img src="" height="100px">
+    <p>$2.00</p>
+    <addtobasket-stub></addtobasket-stub>
+    <p>test here</p>
+  </div>
+</div>
+`;

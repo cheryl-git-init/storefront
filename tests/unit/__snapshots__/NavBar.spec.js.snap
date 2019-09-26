@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavBar.vue matches snapshot 1`] = `
+<div
+  id="nav"
+>
+  <router-link-stub
+    to="/"
+  >
+    <img
+      height="50px"
+      src="@/assets/sign.svg"
+    />
+     
+    <h1>
+      Home
+    </h1>
+  </router-link-stub>
+   
+  <navbuttonbasket-stub />
+</div>
+`;
