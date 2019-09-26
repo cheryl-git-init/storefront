@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoreManagerBundles.vue displays as expected 1`] = `
+<div class="bundle-wrapper">
+  <h2>Bundles</h2>
+  <p>All bundles give 10% off the items when purchased together!</p>
+  <div>
+    <p class="bundle-name">Brawler Bundle:</p> <span><storemanagerbundleitem-stub item="7dgX6XzU3Wds"></storemanagerbundleitem-stub><span> | </span></span><span><storemanagerbundleitem-stub item="VqKb4tyj9V6i"></storemanagerbundleitem-stub><!----></span>
+  </div>
+  <div>
+    <p class="bundle-name">Money Bags:</p> <span><storemanagerbundleitem-stub item="IP3cv7TcZhQn"></storemanagerbundleitem-stub><span> | </span></span><span><storemanagerbundleitem-stub item="500R5EHvNlNB"></storemanagerbundleitem-stub><!----></span>
+  </div>
+  <div>
+    <p class="bundle-name">Fighter:</p> <span><storemanagerbundleitem-stub item="7Hv0hA2nmci7"></storemanagerbundleitem-stub><span> | </span></span><span><storemanagerbundleitem-stub item="PKM5pGAh9yGm"></storemanagerbundleitem-stub><span> | </span></span><span><storemanagerbundleitem-stub item="7dgX6XzU3Wds"></storemanagerbundleitem-stub><!----></span>
+  </div>
+</div>
+`;

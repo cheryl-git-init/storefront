@@ -1,7 +1,7 @@
 # storefront
 Storefront is a vue.js application, written in JavaScript.
 
-It uses vuex to store a consistent state / source of truth across the application and live update details.
+It uses vuex to store a consistent state / source of truth across the application and live update details by computed properties/getters.
 
 It uses vue cli service to provide compatible dev tools and production builds.
 
@@ -12,9 +12,9 @@ Tests are written in Jest (unit tests). To test, run `npm run test:unit`.
 
 I had also planned to add e2e tests, with nightwatch, however, due to time constraints and compatibility issues, I chose to focus on functionality and unit testing.
 
-Current unit testing is limited, with more time I'd look to add testing within the Vuex store, as this is only mocked currently. If I was to do over the project, I'd put more focus into TDD earlier on.
+Current unit testing is limited, with more time I'd look to add testing within the Vuex store (as well as breaking these out into separate files to help with readability), as this is only mocked currently. If I was to do over the project, I'd put more focus into TDD earlier on.
 
-Latest build can also be seen on https://storefront.cheryllane.net (hosts the static build assets created by the command `npm run build`).
+Build can also be seen on https://storefront.cheryllane.net (hosts the static build assets created by the command `npm run build`).
 
 ## All Commands
 ### Project setup

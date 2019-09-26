@@ -1,7 +1,7 @@
 <template>
   <span>
     <span>{{itemDetails.name}}</span>
-    <span v-if="itemIsInBasket">Already in your basket!</span>
+    <!-- <span v-if="itemIsInBasket">Already in your basket!</span> -->
   </span>
 </template>
 
@@ -11,24 +11,19 @@
 export default {
   name: "StoreManagerBundleItem",
   components: {},
-  data: function() {
+  data: function () {
     return {};
   },
   methods: {},
-  mounted: function() {},
+  mounted: function () {},
   props: {
     item: String
   },
   computed: {
-    bundles() {
-      return this.$store.getters.bundlesList;
-    },
-    itemDetails() {
-      console.log(this.item);
+    itemDetails: function () {
       return this.$store.getters.getItemInDepth(this.item);
     },
-    itemIsInBasket() {
-      console.log(this.$store.getters.itemIsInBasket(this.item));
+    itemIsInBasket: function () {
       return this.$store.getters.itemIsInBasket(this.item);
     }
   }
@@ -36,8 +31,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bundle-wrapper {
-  top: 60px;
-  position: relative;
-}
 </style>

@@ -3,7 +3,9 @@
     <span>{{ getItemInDepth.name }}</span>
     <span>{{ getItemInDepth.currencySymbol }}{{ (getItemInDepth.currentUsdPrice / 100).toFixed(2) }}</span>
     <span class="small-text">
-      <template v-if="getItemInDepth.discount > 0">{{ `Inc. ${getItemInDepth.discount}% discount!` }}</template>
+      <template
+        v-if="getItemInDepth.discount > 0"
+      >{{ `Inc. ${getItemInDepth.discount}% discount!` }}</template>
     </span>
     <button class="remove-button" @click="removeItemFromBasket">X</button>
   </div>
@@ -16,7 +18,7 @@ export default {
   name: "basketItem",
   components: {},
   computed: {
-    getItemInDepth() {
+    getItemInDepth: function() {
       return this.$store.getters.getItemInDepth(this.id);
     }
   },
@@ -41,7 +43,6 @@ $color5: rgb(243, 198, 119, 1);
 $coolwhite: rgb(243, 253, 253, 1);
 
 .basket-wrapper {
-  background-color: $color4;
   width: 20em;
   max-width: 95%;
   position: fixed;
@@ -61,7 +62,14 @@ $coolwhite: rgb(243, 253, 253, 1);
       display: inline-block;
     }
     .remove-button {
-        height: 20px;
+      height: 25px;
+      top: 11px;
+      position: relative;
+      border-radius: 10px;
+      width: 50%;
+      margin: 0% 25%;
+      background-color: $color4;
+      color: $color2;
     }
   }
 }

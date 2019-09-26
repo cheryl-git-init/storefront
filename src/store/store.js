@@ -44,7 +44,7 @@ export default new Vuex.Store({
       state.items.push(payload)
     },
     /**
-     * 
+     * Creates an item object in allItemDetails
      * @param {*} state 
      * @param {*} payload 
      */
@@ -52,7 +52,6 @@ export default new Vuex.Store({
       const itemObject = {}
       itemObject.name = payload[0].name
       itemObject.usdPrice = payload[0].usdPrice
-      // TODO: consider adding localised currency.
       itemObject.currentUsdPrice = payload[0].usdPrice
       itemObject.description = payload[1]
       itemObject.discount = 0
@@ -60,7 +59,7 @@ export default new Vuex.Store({
       Vue.set(state.allItemDetails, [payload[0].id], itemObject)
     },
     /**
-     * 
+     * Confirms if the initial data has finished loading
      * @param {*} state 
      */
     finishLoading: function (state) {
@@ -82,6 +81,10 @@ export default new Vuex.Store({
     removeFromBasket: function (state, payload) {
       state.basket.splice(payload, 1)
     },
+    /**
+     * Resets discounts to allow them to be re-populated
+     * @param {*} state 
+     */
     clearAllDiscounts: function (state) {
       for (const item in state.allItemDetails) {
         state.allItemDetails[item].currentUsdPrice = state.allItemDetails[item].usdPrice
@@ -137,25 +140,25 @@ export default new Vuex.Store({
       return state.basket.findIndex(item => item.id === id)
     },
     /**
-     * 
+     * Gets the details object of an item from the item list by ID
      */
     getItemDetails: (state) => (id) => {
       return state.items.find(item => item.id === id)
     },
     /**
-     * 
+     * Gets an item from the more comprehensive details object
      */
     getItemInDepth: (state) => (id) => {
       return state.allItemDetails[id]
     },
     /**
-     * 
+     * Gets the current contents of the basket
      */
     getBasketContents: state => {
       return state.basket
     },
     /**
-     * 
+     * Gets the current basket price, taking into account discounts
      */
     getCurrentPrice: state => {
       if (!state.basket || state.basket.length === 0) {
@@ -170,6 +173,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    /**
+     * Makes API call to get all item details from the provided endpoint. Sends these to setInitialItems.
+     * @param {*} context 
+     */
     getAllItems: async function (context) {
       if (context.getters.itemList.length < 1) {
         const returnedData = await axios.get("https://product-service.herokuapp.com/api/v1/products", {
@@ -177,10 +184,15 @@ export default new Vuex.Store({
             username: "user",
             password: "pass"
           }
-        }).catch(error => error)
+        })
         context.dispatch('setInitialItems', returnedData.data)
       }
     },
+    /**
+     * Recieves data (payload) from getAllItems and calls mutations with these details
+     * @param {*} context 
+     * @param {*} payload 
+     */
     setInitialItems: async function (context, payload) {
       for (var i = 0; i < payload.length; i++) {
         const thisItem = payload[i]
@@ -193,23 +205,35 @@ export default new Vuex.Store({
         context.commit('finishLoading')
       }, 3000);
     },
+    /**
+     * Adds an item to the basket by provided ID
+     * @param {*} context 
+     * @param {*} itemId 
+     */
     addItemToBasket: function (context, itemId) {
       if (!context.getters.itemIsInBasket(itemId)) {
         context.commit('addToBasket', context.getters.getItemDetails(itemId))
         context.dispatch('manageBundleDiscounts')
       }
     },
+    /**
+     * Removes an item from the basket by provided ID
+     * @param {*} context 
+     * @param {*} itemId 
+     */
     removeItemFromBasket: function (context, itemId) {
       if (context.getters.itemIsInBasket(itemId)) {
         context.commit('removeFromBasket', context.getters.getItemIndex(itemId))
         context.dispatch('manageBundleDiscounts')
       }
     },
+    /**
+     * When an item is added or removed from the basket, updates discounts
+     * @param {*} context 
+     */
     manageBundleDiscounts: function (context) {
       const bundlesList = context.getters.bundlesList
-
       context.commit('clearAllDiscounts')
-
       for (const bundle in bundlesList) {
         // If every item in the bundle is in the basket
         if (bundlesList[bundle]['items'].every(context.getters.itemIsInBasket)) {
@@ -217,7 +241,6 @@ export default new Vuex.Store({
             context.commit('setItemDiscounts',[bundlesList[bundle]['items'][item],10])
           }
         }
-        //itemIsInBasket
       }
     }
   }

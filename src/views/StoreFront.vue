@@ -2,7 +2,6 @@
   <div>
     <NavBar/>
     <StoreManager/>
-    <!-- <StoreManagerBundles/> -->
   </div>
 </template>
 
@@ -10,14 +9,12 @@
 // @ is an alias to /src
 import NavBar from '@/components/NavBar.vue'
 import StoreManager from '@/components/StoreManager.vue'
-import StoreManagerBundles from '@/components/StoreManagerBundles.vue'
 
 export default {
   name: 'store',
   components: {
     NavBar,
-    StoreManager,
-    StoreManagerBundles
+    StoreManager
   },
   data: function() {
     return {}

@@ -18,18 +18,18 @@ export default {
   components: {
     Basket
   },
-  data: function() {
+  data: function () {
     return {
       basketIsDisplayed: false
     };
   },
   methods: {
-    toggleBasket: function() {
+    toggleBasket: function () {
       this.basketIsDisplayed = !this.basketIsDisplayed;
     }
   },
   computed: {
-    currentBasketCost() {
+    currentBasketCost: function () {
       return this.$store.getters.getCurrentPrice;
     }
   }

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoreManagerBundleItem.vue displays as expected 1`] = `<span><span>Item</span></span>`;

@@ -38,7 +38,7 @@ export default {
     };
   },
   methods: {
-    getImgLink() {
+    getImgLink: function () {
       return require("@/assets/" + this.id + "_t.png");
     }
   },

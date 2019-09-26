@@ -18,7 +18,7 @@ export default {
       BasketItem
   },
   computed: {
-    getBasketContents() {
+    getBasketContents: function () {
       return this.$store.getters.getBasketContents;
     },
   },

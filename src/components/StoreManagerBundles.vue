@@ -3,10 +3,11 @@
       <h2>Bundles</h2>
       <p>All bundles give 10% off the items when purchased together!</p>
       <div v-for="bundle in bundles" :key="bundle.name">
-          <p>{{ bundle.name }}:</p>
-          <span v-for="item in bundle.items" :key="item">
-              <StoreManagerBundleItem :item="item" />
+          <p class="bundle-name">{{ bundle.name }}:</p>
+          <span v-for="(item, index) in bundle.items" :key="item">
+              <StoreManagerBundleItem :item="item" /><span v-if="!(index == (bundle.items.length - 1))"> | </span>
           </span>
+          <template ></template>
       </div>
   </div>
 </template>
@@ -29,16 +30,21 @@ export default {
   mounted: function() {
   },
   computed: {
-    bundles () {
+    bundles: function () {
       return (this.$store.getters.bundlesList)
-    }
+    },
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.bundle-wrapper {
+div .bundle-wrapper {
     top: 60px;
     position: relative;
+    padding-bottom: 50px;
+    display: block !important;
+    .bundle-name {
+      font-weight: bold;
+    }
 }
 </style>
